@@ -1,31 +1,19 @@
 <?php
   require_once "pdo.php";
   echo "php works!";
-  if (isset($_POST['items'])) {
-    // code...
-    if (empty($_POST['items'])) {
-      // code...
-      echo "stuff is empty";
-    } else {
-      echo "not empty";
-    }
-    echo " Items = ".$_POST['items'];
-    // echo " Items = ".json_decode($_POST['items']);
-
-    // $chosenItems = json_decode($_POST['items']);
+  if (isset($_POST['items']) && !empty($_POST['items'])) {
+    // echo " Items = ".$_POST['items'];
     $chosenItems = implode(', ', json_decode($_POST['items']));
-    echo "<br>".$chosenItems;
 
+    // TODO: stop substituting the values directly in the sql
     $stmt_select = $pdo->prepare("SELECT id, pname, unitprice FROM product WHERE id IN ($chosenItems)");
     $stmt_select->execute();
 
     $stmt_select_sum = $pdo->query("SELECT SUM(unitprice) AS totalprice FROM product WHERE id IN ($chosenItems)");
-
     $totalPriceRow = $stmt_select_sum->fetch(PDO::FETCH_ASSOC);
     $totalPrice = $totalPriceRow['totalprice'];
-
-    // echo " Total Price: ".$totalPrice;
-    // $stmt_select->execute(array(':ids' => $chosenItems));
+  } else {
+    die("FATAL: Did you directly come here?");
   }
 ?>
 <!DOCTYPE html>
