@@ -9,6 +9,8 @@
     <title>Shopping Cart</title>
   </head>
   <body>
+    <?php include "navigation.php"; ?>
+
     <h1>Product List</h1>
 
     <table>
