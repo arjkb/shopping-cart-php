@@ -6,7 +6,6 @@
 <html lang="en" dir="ltr">
   <head>
     <?php include "htmlhead.php"; ?>
-    <script src="script.js" charset="utf-8"></script>
     <title>Shopping Cart</title>
   </head>
   <body>
