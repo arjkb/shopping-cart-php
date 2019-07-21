@@ -48,6 +48,19 @@
 
     header('Location: admin.php');
     return;
+
+  } elseif(isset($_POST['addprodbtn']) && isset($_POST['pname_admin']) && isset($_POST['pprice_admin'])) {
+    echo "add product button clicked";
+    if (!empty($_POST['pname_admin']) && !empty($_POST['pprice_admin'])) {
+      // code...
+      $stmt_insert_product = $pdo->prepare('INSERT INTO product(pname, unitprice) VALUES(:name, :price)');
+      $stmt_insert_product->execute(array(
+        ':name' => $_POST['pname_admin'],
+        ':price' => $_POST['pprice_admin']
+      ));
+    }
+    header('Location: admin.php');
+    return;
   }
 ?>
 <!DOCTYPE html>
@@ -79,8 +92,6 @@
           <th>Product Name</th>
           <th>Unit Price</th>
           <th></th>
-
-
         </thead>
         <tbody>
           <?php while($row = $stmt_selectall_product->fetch(PDO::FETCH_ASSOC)): ?>
@@ -99,7 +110,7 @@
           <?php endwhile; ?>
 
           <tr>
-            <form class="" action="" method="post">
+            <form class="" action="admin.php" method="post">
               <td>#</td>
               <td>
                 <input type="text" name="pname_admin" >
@@ -110,7 +121,6 @@
               <td>
                 <button type="submit" name="addprodbtn">Add Product</button>
               </td>
-
             </form>
           </tr>
         </tbody>
@@ -119,8 +129,6 @@
       <h3>Customers</h3>
 
       <h3>Orders</h3>
-
-
 
     <?php endif; ?>
 
