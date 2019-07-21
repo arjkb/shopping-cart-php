@@ -34,6 +34,12 @@
     }
 
   }
+
+  if (isset($_POST['editbtn_admin'])) {
+    // echo "edit button was clicked!";
+  } elseif (isset($_POST['deletebtn_admin'])) {
+    // echo "delete button was clicked!";
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -60,16 +66,21 @@
 
       <table>
         <thead>
+          <th>Product ID</th>
+          <th>Product Name</th>
+          <th>Unit Price</th>
+          <th></th>
+
 
         </thead>
         <tbody>
           <?php while($row = $stmt_selectall_product->fetch(PDO::FETCH_ASSOC)): ?>
             <tr>
-              <td><?= $row['id'] ?></td>
+              <td>#<?= $row['id'] ?></td>
               <td><?= $row['pname'] ?></td>
               <td><?= $row['unitprice'] ?></td>
               <td>
-                <form class="" action="" method="post">
+                <form class="" action="admin.php" method="post">
                   <input type="hidden" name="product_id" value="<?= $row['id'] ?>">
                   <button type="submit" name="editbtn_admin">Edit</button>
                   <button type="submit" name="deletebtn_admin">Delete</button>
@@ -77,6 +88,22 @@
               </td>
             </tr>
           <?php endwhile; ?>
+
+          <tr>
+            <form class="" action="" method="post">
+              <td>#</td>
+              <td>
+                <input type="text" name="pname_admin" >
+              </td>
+              <td>
+                <input type="text" name="pprice_admin" >
+              </td>
+              <td>
+                <button type="submit" name="addprodbtn">Add Product</button>
+              </td>
+
+            </form>
+          </tr>
         </tbody>
       </table>
 
