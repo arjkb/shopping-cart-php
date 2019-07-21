@@ -17,6 +17,7 @@
 
     $row_user_credentials = $stmt_user_credentials->fetch(PDO::FETCH_ASSOC);
     $username_fromdb = $row_user_credentials['cname'];
+    $userid_fromdb = $row_user_credentials['id'];
     $actualpasshash = $row_user_credentials['cpasshash'];
     echo "<br> Hello ".$username_fromdb;
     echo "<br> Passhash from DB: ".$actualpasshash;
@@ -24,6 +25,9 @@
     if (password_verify($userpass, $actualpasshash)) {
       echo "<br> Passwords match!";
       $_SESSION['username'] = $username_fromdb;
+      $_SESSION['userid'] = $userid_fromdb;
+
+      echo "<br> USER ID: ".$_SESSION['userid'];
 
       // TODO: dicey if condition; change
       if (isset($_SESSION['return_addr'])) {
