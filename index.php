@@ -18,12 +18,12 @@
   </head>
   <body>
     <?php include "navigation.php"; ?>
-
+    <div class="container">
     <h1>Product List</h1>
 
     <h2><?= $loginMessage ?></h2>
 
-    <table>
+    <table class="table">
       <thead>
         <th>Product Name</th>
         <th>Unit Price</th>
@@ -37,13 +37,13 @@
           <td>
             <form class="" action="" method="POST">
               <input type="hidden" name="addtocart_id" value="<?= $row['id'] ?>">
-              <button class="addcartbtn" value="<?= $row['id'] ?>" type="button">Add to cart</button>
+              <button class="addcartbtn btn btn-outline-primary btn-sm" value="<?= $row['id'] ?>" type="button">Add to cart</button>
             </form>
           </td>
           <td>
             <form class="" action="" method="POST">
               <input type="hidden" name="buynow_id" value="<?= $row['id'] ?>">
-              <button class="buynowbtn" value="<?= $row['id'] ?>" type="submit">Buy now</button>
+              <button class="buynowbtn btn btn-outline-secondary btn-sm" value="<?= $row['id'] ?>" type="submit">Buy now</button>
             </form>
           </td>
         </tr>
@@ -53,8 +53,10 @@
 
     <form class="" action="cart.php" method="POST">
       <input type="hidden" id="chosenitems" name="items">
-      <button type="submit" name="button" id="buybtn">Buy</button>
+      <button type="submit" name="button" id="buybtn" class="btn btn-outline-primary">Buy</button>
     </form>
+
+    </div>
 
   </body>
 </html>

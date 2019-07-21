@@ -103,14 +103,20 @@
   </head>
   <body>
     <?php include "navigation.php"; ?>
+    <div class="container">
 
     <h1>Admin Control Panel</h1>
-
     <?php if(!$admin_logged_in): ?>
       <form class="" action="admin.php" method="POST">
-        Username: <input type="text" name="adminusername" value=""> <br><br>
-        Password: <input type="text" name="adminpass" value=""> <br><br>
-        <button type="submit" name="button">Log In</button>
+        <div class="form-group">
+          Username: <input type="text" class="form-control" name="adminusername">
+        </div>
+        <div class="form-group">
+          Password: <input type="text" class="form-control" name="adminpass">
+        </div>
+        <div class="form-group">
+          <button type="submit" name="button" class="btn btn-outline-primary">Log In</button>
+        </div>
       </form>
     <?php else: ?>
       <!-- Logged in as admin; show admin stuff -->
@@ -118,7 +124,7 @@
 
       <h3>Products</h3>
 
-      <table>
+      <table class="table">
         <thead>
           <th>Product ID</th>
           <th>Product Name</th>
@@ -134,24 +140,30 @@
               <td>
                 <form class="" action="admin.php" method="post">
                   <input type="hidden" name="product_id" value="<?= $row['id'] ?>">
-                  <button type="submit" name="editbtn_admin">Edit</button>
-                  <button type="submit" name="deletebtn_admin">Delete</button>
+                  <button type="submit" name="editbtn_admin" class="btn btn-outline-primary btn-sm">Edit</button>
+                  <button type="submit" name="deletebtn_admin" class="btn btn-outline-danger btn-sm">Delete</button>
                 </form>
               </td>
             </tr>
           <?php endwhile; ?>
 
           <tr>
-            <form class="" action="admin.php" method="post">
+            <form action="admin.php" method="post">
               <td>#</td>
               <td>
-                <input type="text" name="pname_admin" >
+                <div class="form-group">
+                  <input type="text" class="form-control" name="pname_admin" placeholder="Product name">
+                </div>
               </td>
               <td>
-                <input type="text" name="pprice_admin" >
+                <div class="form-group">
+                  <input type="text" class="form-control" name="pprice_admin" placeholder="Product unit price" >
+                </div>
               </td>
               <td>
-                <button type="submit" name="addprodbtn">Add Product</button>
+                <div class="form-group">
+                  <button type="submit" name="addprodbtn" class="btn btn-outline-warning">Add Product</button>
+                </div<
               </td>
             </form>
           </tr>
@@ -160,7 +172,7 @@
 
       <h3>Customers</h3>
 
-      <table>
+      <table class="table">
         <thead>
           <th>Customer ID</th>
           <th>Customer Name</th>
@@ -176,8 +188,8 @@
               <td>
                 <form class="" action="admin.php" method="post">
                   <input type="hidden" name="customer_id" value="<?= $row['id'] ?>">
-                  <button type="submit" name="cust_editbtn_admin">Edit</button>
-                  <button type="submit" name="cust_deletebtn_admin">Delete</button>
+                  <button type="submit" name="cust_editbtn_admin" class="btn btn-outline-primary btn-sm">Edit</button>
+                  <button type="submit" name="cust_deletebtn_admin" class="btn btn-outline-danger btn-sm">Delete</button>
                 </form>
               </td>
             </tr>
@@ -187,7 +199,7 @@
 
       <h3>Orders</h3>
 
-      <table>
+      <table class="table">
         <thead>
           <th>Order ID</th>
           <th>Customer Name</th>
@@ -206,8 +218,8 @@
               <td>
                 <form class="" action="admin.php" method="post">
                   <input type="hidden" name="order_id" value="<?= $row['id'] ?>">
-                  <button type="submit" name="order_editbtn_admin">Edit</button>
-                  <button type="submit" name="order_deletebtn_admin">Delete</button>
+                  <button type="submit" name="order_editbtn_admin" class="btn btn-outline-primary btn-sm">Edit</button>
+                  <button type="submit" name="order_deletebtn_admin" class="btn btn-outline-danger btn-sm">Delete</button>
                 </form>
               </td>
             </tr>
@@ -217,6 +229,7 @@
       </table>
 
     <?php endif; ?>
+    </div>
 
   </body>
 </html>
