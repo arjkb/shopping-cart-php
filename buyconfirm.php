@@ -1,9 +1,12 @@
 <?php
+  session_start();
   require_once "pdo.php";
   echo "php works!";
   if (isset($_POST['items']) && !empty($_POST['items'])) {
     // echo " Items = ".$_POST['items'];
+
     $chosenItems = implode(', ', json_decode($_POST['items']));
+    $_SESSION['chosenitems'] = $chosenItems;
 
     // TODO: stop substituting the values directly in the sql
     $stmt_select = $pdo->prepare("SELECT id, pname, unitprice FROM product WHERE id IN ($chosenItems)");
@@ -40,7 +43,7 @@
       Total Price: $<?= $totalPrice; ?>
     </div>
 
-    <form class="" action="index.html" method="post">
+    <form class="" action="purchased.php" method="post">
       <input type="hidden" name="purchaseitems" value="<?= $_POST['items'] ?>">
       <button type="button" name="cancelbtn">Cancel</button>
       <button type="submit" name="purchasebtn">Purchase</button>

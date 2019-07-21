@@ -51,7 +51,7 @@
       </tbody>
     </table>
 
-    <form class="" action="buyconfirm.php" method="POST">
+    <form class="" action="cart.php" method="POST">
       <input type="hidden" id="chosenitems" name="items">
       <button type="submit" name="button" id="buybtn">Buy</button>
     </form>

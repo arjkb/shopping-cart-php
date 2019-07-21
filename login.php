@@ -24,6 +24,16 @@
     if (password_verify($userpass, $actualpasshash)) {
       echo "<br> Passwords match!";
       $_SESSION['username'] = $username_fromdb;
+
+      // TODO: dicey if condition; change
+      if (isset($_SESSION['return_addr'])) {
+        // header('Location: '.$_SESSION['return_addr']);
+        header('Location: cart.php');
+        return;
+      } else {
+        header('Location: index.php');
+        return;
+      }
     } else {
       echo "<br> Passwords DO NOT match!";
     }
@@ -45,5 +55,7 @@
       Password: <input type="text" name="loginpass" value=""> <br><br>
       <button type="submit" name="button">Log In</button>
     </form>
+
+    <a href="signup.php">Sign Up</a>
   </body>
 </html>
