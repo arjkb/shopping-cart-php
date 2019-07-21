@@ -24,6 +24,14 @@
     if (password_verify($userpass, $actualpasshash)) {
       echo "<br> Passwords match!";
       $_SESSION['username'] = $username_fromdb;
+
+      if (isset($_SESSION['return_addr'])) {
+        header('Location: '.$_SESSION['return_addr']);
+        return;
+      } else {
+        header('Location: index.php');
+        return;
+      }
     } else {
       echo "<br> Passwords DO NOT match!";
     }
