@@ -53,5 +53,7 @@
       Password: <input type="text" name="loginpass" value=""> <br><br>
       <button type="submit" name="button">Log In</button>
     </form>
+
+    <a href="signup.php">Sign Up</a>
   </body>
 </html>
