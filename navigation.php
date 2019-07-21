@@ -7,5 +7,6 @@
     <?php else: ?>
       <li><a href="login.php">Login</a></li>
     <?php endif; ?>
+    <li><a href="signup.php">Sign Up</a></li>
   </ul>
 </nav>
