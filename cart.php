@@ -3,21 +3,19 @@
   require_once "pdo.php";
   echo "php works!";
 
-  if (isset($_SESSION['chosenitems'])) {
-    // code...
-    $chosenItems = $_SESSION['chosenitems'];
-  }
   if (isset($_POST['items']) && !empty($_POST['items'])) {
     // echo " Items = ".$_POST['items'];
     $chosenItems = implode(', ', json_decode($_POST['items']));
     echo "<br> chosen items: $chosenItems";
     $_SESSION['chosenitems'] = $chosenItems;
 
+  } elseif(isset($_SESSION['chosenitems']))  {
+    $chosenItems = $_SESSION['chosenitems'];
 
   } else {
     die("FATAL: Did you directly come here?");
-  }
 
+  }
 
   if (!empty($chosenItems)) {
     // code...
@@ -66,7 +64,6 @@
     <?php else: ?>
       <p>Your cart is empty</p>
     <?php endif; ?>
-
 
   </body>
 </html>
