@@ -22,7 +22,7 @@
         // code...
         echo "Both passwords do not match!";
       } else {
-        // code...
+        // do the signup
         echo "passwords match!";
 
         $cust_name = $_POST['signup_name'];
@@ -35,6 +35,9 @@
           ':email' => $cust_email,
           ':hash' => $cust_passhash
         ));
+        // TODO: check whether the above was successful
+        header('Location: cart.php');
+        return;
       }
     }
   } // end of outermost if

@@ -25,8 +25,10 @@
       echo "<br> Passwords match!";
       $_SESSION['username'] = $username_fromdb;
 
+      // TODO: dicey if condition; change
       if (isset($_SESSION['return_addr'])) {
-        header('Location: '.$_SESSION['return_addr']);
+        // header('Location: '.$_SESSION['return_addr']);
+        header('Location: cart.php');
         return;
       } else {
         header('Location: index.php');
