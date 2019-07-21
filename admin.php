@@ -10,6 +10,7 @@
     // set up database connections
     $stmt_selectall_product = $pdo->query('SELECT id, pname, unitprice FROM product');
     $stmt_selectall_customer = $pdo->query('SELECT id, cname, cemail FROM customer');
+    $stmt_selectall_orders = $pdo->query('SELECT orders.id, customer.cname, product.pname, product.unitprice, orders.address FROM orders, customer, product WHERE orders.idcust = customer.id AND orders.idprod = product.id');
 
   } elseif (isset($_POST['adminusername']) && isset($_POST['adminpass'])) {
     if (empty($_POST['adminusername']) || empty($_POST['adminpass'])) {
@@ -173,6 +174,35 @@
       </table>
 
       <h3>Orders</h3>
+
+      <table>
+        <thead>
+          <th>Order ID</th>
+          <th>Customer Name</th>
+          <th>Product Name</th>
+          <th>Product Name</th>
+          <th>Shipping Address</th>
+        </thead>
+        <tbody>
+          <?php while($row = $stmt_selectall_orders->fetch(PDO::FETCH_ASSOC)): ?>
+            <tr>
+              <td>#<?= $row['id'] ?></td>
+              <td><?= $row['cname'] ?></td>
+              <td><?= $row['pname'] ?></td>
+              <td><?= $row['unitprice'] ?></td>
+              <td><?= $row['address'] ?></td>
+              <td>
+                <form class="" action="admin.php" method="post">
+                  <input type="hidden" name="order_id" value="<?= $row['id'] ?>">
+                  <button type="submit" name="ordereditbtn_admin">Edit</button>
+                  <button type="submit" name="orderdeletebtn_admin">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <?php endwhile; ?>
+
+        </tbody>
+      </table>
 
     <?php endif; ?>
 
