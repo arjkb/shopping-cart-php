@@ -103,14 +103,20 @@
   </head>
   <body>
     <?php include "navigation.php"; ?>
+    <div class="container">
 
     <h1>Admin Control Panel</h1>
-
     <?php if(!$admin_logged_in): ?>
       <form class="" action="admin.php" method="POST">
-        Username: <input type="text" name="adminusername" value=""> <br><br>
-        Password: <input type="text" name="adminpass" value=""> <br><br>
-        <button type="submit" name="button">Log In</button>
+        <div class="form-group">
+          Username: <input type="text" class="form-control" name="adminusername">
+        </div>
+        <div class="form-group">
+          Password: <input type="text" class="form-control" name="adminpass">
+        </div>
+        <div class="form-group">
+          <button type="submit" name="button" class="btn btn-outline-primary">Log In</button>
+        </div>
       </form>
     <?php else: ?>
       <!-- Logged in as admin; show admin stuff -->
@@ -217,6 +223,7 @@
       </table>
 
     <?php endif; ?>
+    </div>
 
   </body>
 </html>

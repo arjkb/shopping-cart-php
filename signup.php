@@ -15,7 +15,7 @@
         empty($_POST['signup_pass1']) ||
         empty($_POST['signup_pass2'])) {
         // code...
-      echo " some fields are empty";
+      // echo " some fields are empty";
     } else {
 
       if ($_POST['signup_pass1'] !== $_POST['signup_pass2']) {
@@ -42,7 +42,7 @@
     }
   } // end of outermost if
   else {
-    echo "no post data";
+    // echo "no post data";
   }
 ?>
 <!DOCTYPE html>
@@ -54,14 +54,25 @@
   <body>
     <?php include "navigation.php"; ?>
 
+    <div class="container">
     <h1>Sign Up</h1>
-
     <form class="" action="signup.php" method="POST">
-      Name: <input type="text" name="signup_name" value=""> <br><br>
-      Email: <input type="text" name="signup_email" value=""> <br><br>
-      Password: <input type="text" name="signup_pass1" value=""> <br><br>
-      Retype Password: <input type="text" name="signup_pass2" value=""> <br><br>
-      <button type="submit" name="button">Sign Up</button>
+      <div class="form-group">
+        Name: <input type="text" class="form-control" name="signup_name" value="">
+      </div>
+      <div class="form-group">
+        Email: <input type="text" class="form-control" name="signup_email" value="">
+      </div>
+      <div class="form-group">
+        Password: <input type="text" class="form-control" name="signup_pass1" value="">
+      </div>
+      <div class="form-group">
+        Retype Password: <input type="text" class="form-control" name="signup_pass2" value="">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-outline-primary">Sign Up</button>
+      </div>
     </form>
+    </div>
   </body>
 </html>
