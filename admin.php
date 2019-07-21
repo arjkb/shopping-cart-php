@@ -37,8 +37,17 @@
 
   if (isset($_POST['editbtn_admin'])) {
     // echo "edit button was clicked!";
+
   } elseif (isset($_POST['deletebtn_admin'])) {
     // echo "delete button was clicked!";
+
+    $id = $_POST['product_id'];
+
+    $stmt_delete_product = $pdo->prepare('DELETE FROM product WHERE id = :id');
+    $stmt_delete_product->execute(array(':id' => $id));
+
+    header('Location: admin.php');
+    return;
   }
 ?>
 <!DOCTYPE html>
