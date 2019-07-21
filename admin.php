@@ -74,6 +74,18 @@
 
     header('Location: admin.php');
     return;
+
+  } elseif (isset($_POST['order_editbtn_admin'])) {
+    // code...
+  } elseif (isset($_POST['order_deletebtn_admin'])) {
+    // code...
+
+    $id = $_POST['order_id'];
+    $stmt_delete_order = $pdo->prepare('DELETE FROM orders WHERE id = :id');
+    $stmt_delete_order->execute(array(':id' => $id));
+    header('Location: admin.php');
+    return;
+
   }
   // elseif (isset($_POST['addcustbtn'])) {
   //   // add customer button was pressed
@@ -194,8 +206,8 @@
               <td>
                 <form class="" action="admin.php" method="post">
                   <input type="hidden" name="order_id" value="<?= $row['id'] ?>">
-                  <button type="submit" name="ordereditbtn_admin">Edit</button>
-                  <button type="submit" name="orderdeletebtn_admin">Delete</button>
+                  <button type="submit" name="order_editbtn_admin">Edit</button>
+                  <button type="submit" name="order_deletebtn_admin">Delete</button>
                 </form>
               </td>
             </tr>
