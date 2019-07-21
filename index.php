@@ -37,13 +37,13 @@
           <td>
             <form class="" action="" method="POST">
               <input type="hidden" name="addtocart_id" value="<?= $row['id'] ?>">
-              <button class="addcartbtn btn btn-outline-primary" value="<?= $row['id'] ?>" type="button">Add to cart</button>
+              <button class="addcartbtn btn btn-outline-primary btn-sm" value="<?= $row['id'] ?>" type="button">Add to cart</button>
             </form>
           </td>
           <td>
             <form class="" action="" method="POST">
               <input type="hidden" name="buynow_id" value="<?= $row['id'] ?>">
-              <button class="buynowbtn btn btn-outline-secondary" value="<?= $row['id'] ?>" type="submit">Buy now</button>
+              <button class="buynowbtn btn btn-outline-secondary btn-sm" value="<?= $row['id'] ?>" type="submit">Buy now</button>
             </form>
           </td>
         </tr>
