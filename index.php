@@ -1,4 +1,12 @@
 <?php
+  session_start();
+  if (isset($_SESSION['username'])) {
+    // user is logged in
+    $loginMessage = "Welcome, ".$_SESSION['username']."!";
+  } else {
+    $loginMessage = "You are currently not logged in";
+  }
+
   require_once "pdo.php";
   $stmt_select = $pdo->query('SELECT id, pname, unitprice FROM product');
 ?>
@@ -12,6 +20,8 @@
     <?php include "navigation.php"; ?>
 
     <h1>Product List</h1>
+
+    <h2><?= $loginMessage ?></h2>
 
     <table>
       <thead>
