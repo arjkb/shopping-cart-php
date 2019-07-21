@@ -9,6 +9,7 @@
 
     // set up database connections
     $stmt_selectall_product = $pdo->query('SELECT id, pname, unitprice FROM product');
+    $stmt_selectall_customer = $pdo->query('SELECT id, cname, cemail FROM customer');
 
   } elseif (isset($_POST['adminusername']) && isset($_POST['adminpass'])) {
     if (empty($_POST['adminusername']) || empty($_POST['adminpass'])) {
@@ -61,7 +62,25 @@
     }
     header('Location: admin.php');
     return;
+  } elseif (isset($_POST['cust_editbtn_admin'])) {
+    // code...
+    echo "customer edit button was pressed";
+  } elseif (isset($_POST['cust_deletebtn_admin'])) {
+    // customer delete button was pressed
+    $id = $_POST['customer_id'];
+    $stmt_delete_customer = $pdo->prepare('DELETE FROM customer WHERE id = :id');
+    $stmt_delete_customer->execute(array(':id' => $id));
+
+    header('Location: admin.php');
+    return;
   }
+  // elseif (isset($_POST['addcustbtn'])) {
+  //   // add customer button was pressed
+  //   if (!empty($_POST['cname_admin']) && !empty($_POST['cemail_admin'])) {
+  //     $stmt_insert_customer = $pdo->prepare();
+  //
+  //   }
+  // }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -127,6 +146,31 @@
       </table>
 
       <h3>Customers</h3>
+
+      <table>
+        <thead>
+          <th>Customer ID</th>
+          <th>Customer Name</th>
+          <th>Customer Email</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <?php while($row = $stmt_selectall_customer->fetch(PDO::FETCH_ASSOC)): ?>
+            <tr>
+              <td>#<?= $row['id'] ?></td>
+              <td><?= $row['cname'] ?></td>
+              <td><?= $row['cemail'] ?></td>
+              <td>
+                <form class="" action="admin.php" method="post">
+                  <input type="hidden" name="customer_id" value="<?= $row['id'] ?>">
+                  <button type="submit" name="cust_editbtn_admin">Edit</button>
+                  <button type="submit" name="cust_deletebtn_admin">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <?php endwhile; ?>
+        </tbody>
+      </table>
 
       <h3>Orders</h3>
 
