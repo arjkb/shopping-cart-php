@@ -3,6 +3,7 @@
   require_once "pdo.php";
   // echo "php works!";
 
+  $existing_session_id = session_id();
   if (isset($_POST['loginemail']) &&
       isset($_POST['loginpass']) ) {
 
@@ -29,6 +30,12 @@
       $_SESSION['userid'] = $userid_fromdb;
 
       // echo "<br> USER ID: ".$_SESSION['userid'];
+      //
+      $stmt_update_cart = $pdo->prepare('UPDATE cart SET idcust = :cust_id WHERE idcust = :sess_id');
+      $stmt_update_cart->execute(array(
+        ':cust_id' => $_SESSION['userid'],
+        ':sess_id' => session_id()
+      ));
 
       // TODO: dicey if condition; change
       if (isset($_SESSION['return_addr'])) {
@@ -41,6 +48,7 @@
       }
     } else {
       // echo "<br> Passwords DO NOT match!";
+      $_SESSION['FLASH_ERROR'] = "Invalid login credentials!";
     }
   }
 ?>
@@ -54,6 +62,12 @@
     <?php include "navigation.php"; ?>
     <div class="container">
     <h1>Login</h1>
+
+    <?php if(isset($_SESSION['FLASH_ERROR'])): ?>
+      <p class="flash-msg-err">
+        <?= $_SESSION['FLASH_ERROR']; ?>
+      </p>
+    <?php endif; unset($_SESSION['FLASH_ERROR']); ?>
 
     <form class="" action="login.php" method="POST">
       <div class="form-group">

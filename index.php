@@ -1,13 +1,38 @@
 <?php
   session_start();
-  if (isset($_SESSION['username'])) {
+  require_once "pdo.php";
+
+  if (isset($_SESSION['admin'])) {
+    // logged in as admin; redirect to admin panel
+    $_SESSION['FLASH_MESSAGE'] = "You can't view index.php as admin";
+    header('Location: admin.php');
+    return;
+
+  } elseif (isset($_SESSION['username'])) {
     // user is logged in
+    $customer_id = $_SESSION['userid'];
     $loginMessage = "Welcome, ".$_SESSION['username']."!";
   } else {
+    $customer_id = session_id();
     $loginMessage = "You are currently not logged in";
   }
 
-  require_once "pdo.php";
+  if (isset($_POST['addcartbtn']) ) {
+    // code...
+    echo "<br> add to cart button clicked ".$_POST['addtcartbtn'];
+    $stmt_insert_cart = $pdo->prepare('INSERT INTO cart(idcust, idprod)VALUES(:cust_id, :prod_id)');
+    // $stmt_insert_cart = $pdo->prepare('INSERT INTO cart(idcust, idprod)VALUES('2', 3)');
+    // $stmt_insert_cart->execute();
+    // $stmt_insert_cart->execute(array(
+    //   ':cust_id' => '2',
+    //   ':prod_id' => 57
+    // ));
+    $stmt_insert_cart->execute(array(
+      ':cust_id' => $_POST['customer_id'],
+      ':prod_id' => $_POST['addcartbtn']
+    ));
+  }
+
   $stmt_select = $pdo->query('SELECT id, pname, unitprice FROM product');
 ?>
 <!DOCTYPE html>
@@ -20,8 +45,7 @@
     <?php include "navigation.php"; ?>
     <div class="container">
     <h1>Product List</h1>
-
-    <h2><?= $loginMessage ?></h2>
+    <h3><small class="text-muted"><?= $loginMessage ?></small></h3>
 
     <table class="table">
       <thead>
@@ -37,15 +61,16 @@
           <td>
             <form class="" action="" method="POST">
               <input type="hidden" name="addtocart_id" value="<?= $row['id'] ?>">
-              <button class="addcartbtn btn btn-outline-primary btn-sm" value="<?= $row['id'] ?>" type="button">Add to cart</button>
+              <button class="addcartbtn btn btn-outline-primary btn-sm" name="addcartbtn" value="<?= $row['id']?>;<?= $customer_id ?>" type="button">Add to cart</button>
+              <button class="buynowbtn btn btn-outline-secondary btn-sm" value="<?= $row['id'] ?>" type="submit">Buy now</button>
             </form>
           </td>
-          <td>
+          <!-- <td>
             <form class="" action="" method="POST">
               <input type="hidden" name="buynow_id" value="<?= $row['id'] ?>">
               <button class="buynowbtn btn btn-outline-secondary btn-sm" value="<?= $row['id'] ?>" type="submit">Buy now</button>
             </form>
-          </td>
+          </td> -->
         </tr>
       <?php endwhile; ?>
       </tbody>

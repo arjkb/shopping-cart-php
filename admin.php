@@ -17,6 +17,9 @@
       // code...
       // invalid login
       echo "Invalid login";
+      $_SESSION['FLASH_ERROR'] = "All fields must be entered!";
+      header('Location: admin.php');
+      return;
     }
 
     $uname = $_POST['adminusername'];
@@ -33,6 +36,8 @@
 
       header('Location: admin.php'); // reload this page as GET
       return;
+    } else {
+      $_SESSION['FLASH_ERROR'] = "Invalid login credentials!";
     }
 
   }
@@ -106,6 +111,18 @@
     <div class="container">
 
     <h1>Admin Control Panel</h1>
+    <?php if(isset($_SESSION['FLASH_ERROR'])): ?>
+      <p class="flash-msg-err">
+        <?= $_SESSION['FLASH_ERROR']; ?>
+      </p>
+    <?php elseif(isset($_SESSION['FLASH_MESSAGE'])): ?>
+      <p class="flash-msg">
+        <?= $_SESSION['FLASH_MESSAGE']; ?>
+      </p>
+    <?php
+      endif;
+      unset($_SESSION['FLASH_ERROR']);
+    ?>
     <?php if(!$admin_logged_in): ?>
       <form class="" action="admin.php" method="POST">
         <div class="form-group">
@@ -120,7 +137,7 @@
       </form>
     <?php else: ?>
       <!-- Logged in as admin; show admin stuff -->
-      <h2>Welcome, Admin!</h2>
+      <h3><small class="text-muted">Welcome, <?= $_SESSION['admin']; ?>!</small></h3>
 
       <h3>Products</h3>
 
